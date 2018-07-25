@@ -46,7 +46,7 @@ function changeLoc() {
 			console.log(i);
 			// 받아온 json 종류중 list(미세먼지 정보가 담겨있는 object들의 뭉치) 를 받아온다
 			if(i == "list"){
-				// 선택받은 리스트를 담는다123123
+				// 선택받은 리스트를 담는다123123 응애에요
 				list = item;
 			}	
 		})

@@ -4,11 +4,19 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<link rel="stylesheet" href="/resources/demos/style.css">
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <title>Insert title here</title>
 
 <script>
 $(document).ready(function(){
+	
+	//자동완성 기능
+	
+	
+	
 	//위도 경도 구하기
 	navigator.geolocation.getCurrentPosition(function(position){	    
 	    $('#xLoc').text(position.coords.latitude);
@@ -24,20 +32,22 @@ $(document).ready(function(){
 		})
 		
 		var temp = "";
-		
+		var stt = [];
 		for(var i=0; i<station.length; i++){
-			$('#location').append($('<option>', {
-			    text: station[i].stationName
-			}));
+			stt.push(station[i].stationName);
 		}
 		
-		$('#station').text(temp);
+		console.log(stt);
+		
+		$( "#tags" ).autocomplete({
+		   source: stt
+		});
 	});
 })
 
 function changeLoc() {
 	//선택된 option값의 이름을 가져온다 ex) 종로
-	var data= $('select>option:selected').val();
+	var data= $('#tags').val();
 	var list;
 	
 	//미세먼지 측정 json을 지역을 넘겨줘서 출력하게 한다. (Mise servlet은 지역값을 먹으면 지역값의 정보를 반환하게 되어있음)
@@ -65,9 +75,8 @@ function changeLoc() {
 
 </head>
 <body>
-	<select id="location" onchange="changeLoc()">
-		<option>종로</option>
-	</select><br>
+	<img src ="img/icon.png">
+	<input id="tags" onblur="changeLoc()"><br>
 	미세먼지등급 : <span id="pm10Grade"></span><br>
 	미세먼지지수 : <span id="pm10Value"></span><br>
 	<!--  
